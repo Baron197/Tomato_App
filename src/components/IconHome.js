@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { Card, CardItem, Thumbnail } from 'native-base';
 import { Icon } from 'react-native-elements';
 
 
