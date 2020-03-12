@@ -11,3 +11,9 @@ export const FILL_LIST_POST = 'FILL_LIST_POST';
 
 // action types RestaurantDetailsReducer
 export const INIT_RESTAURANT_DETAILS = 'INIT_RESTAURANT_DETAILS';
+export const FILL_LIST_REVIEWS = 'FILL_LIST_REVIEWS';
+
+// action types ReviewRestaurantListReducer
+export const FILL_FULL_LIST_REVIEWS = 'FILL_FULL_LIST_REVIEWS';
+export const GETTING_FULL_LIST_REVIEWS = 'GETTING_FULL_LIST_REVIEWS';
+export const EMPTY_FULL_LIST_REVIEWS = 'EMPTY_FULL_LIST_REVIEWS';

@@ -2,6 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../components/Home';
 import RestaurantDetails from '../components/RestaurantDetails';
+import RestaurantReviewList from '../components/RestaurantReviewList';
 
 const Stack = createStackNavigator()
 
@@ -13,6 +14,7 @@ export default (props) => {
         >
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="RestaurantDetails" component={RestaurantDetails} />
+          <Stack.Screen name="RestaurantReviewList" component={RestaurantReviewList} />
         </Stack.Navigator>
     )
 }

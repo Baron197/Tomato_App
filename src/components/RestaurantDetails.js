@@ -1,12 +1,18 @@
 import React from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { Header, Card } from 'react-native-elements';
+import { Left, Icon } from 'native-base';
 import { connect } from 'react-redux';
+import { getListReviews, emptyFullListReviews } from '../actions';
 
 class RestaurantDetails extends React.Component {
+    componentDidMount() {
+        this.props.getListReviews(this.props.id)
+    }
+
     render() {
         return (
-            <View>
+            <View style={{ flex: 1  }}>
                 <Header
                     placement='left'
                     centerComponent={{ 
@@ -74,6 +80,83 @@ class RestaurantDetails extends React.Component {
                             {this.props.currency}{this.props.average_cost_for_two}
                         </Text>
                     </Card>
+                    <Card title="User Reviews" containerStyle={{ marginBottom: 20 }}>
+                        {
+                            this.props.reviewList.map((r, i) => {
+                                return (
+                                    <View key={i} style={{ padding: 10 }}>
+                                        <View style={{ flexDirection: 'row' }}>
+                                            <Image
+                                                style={{ width: 45, height: 45, borderRadius: 45, marginRight: 10 }}
+                                                source={{ uri: r.review.user.profile_image }}
+                                            />
+                                            <View>
+                                                <Text style={{ fontSize: 15 }}>{r.review.user.name}</Text>
+                                                <View style={{ flexDirection: 'row', height: 15, alignItems: 'center' }}>
+                                                    <Icon 
+                                                        type='FontAwesome'
+                                                        name='star' 
+                                                        style={{ 
+                                                            fontSize:12,
+                                                            color:'gold'
+                                                        }} 
+                                                    />
+                                                    <Text 
+                                                        style={{
+                                                            fontSize:12,
+                                                            color:'black',
+                                                            marginLeft: 5
+                                                        }}
+                                                    >
+                                                        {r.review.rating}
+                                                    </Text>
+                                                    <Text 
+                                                        style={{
+                                                            fontSize:12,
+                                                            color:'black',
+                                                            marginLeft: 5
+                                                        }}
+                                                    >
+                                                        ({r.review.rating_text})
+                                                    </Text>
+                                                    <Text 
+                                                        style={{
+                                                            fontSize:12,
+                                                            color:'#9e9e9e',
+                                                            marginLeft: 5
+                                                        }}
+                                                    >
+                                                        {r.review.review_time_friendly}
+                                                    </Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                        <View style={{ paddingTop: 10 }}>
+                                            <Text style={{ fontSize: 12 }}>
+                                                {r.review.review_text}
+                                            </Text>
+                                        </View>
+                                    </View>
+                                );
+                            })
+                        }
+                        <View style={{ alignItems: 'center' }}>
+                            <TouchableOpacity onPress={() => { 
+                                this.props.emptyFullListReviews()
+                                this.props.navigation.navigate('RestaurantReviewList')
+                            }}>
+                                <Text style={{ 
+                                    color: 'tomato', 
+                                    borderWidth: 1,
+                                    borderColor: 'tomato',
+                                    padding: 10,
+                                    borderRadius: 10
+                                }}>
+                                    See All Reviews
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </Card>
                 </ScrollView>
             </View>
         )
@@ -86,4 +169,4 @@ const mapStateToProps = ({ restaurantDetails }) => {
     }
 }
 
-export default connect(mapStateToProps)(RestaurantDetails);
+export default connect(mapStateToProps, { getListReviews, emptyFullListReviews })(RestaurantDetails);

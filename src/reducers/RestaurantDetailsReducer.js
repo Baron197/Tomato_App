@@ -1,8 +1,10 @@
 import {
-    INIT_RESTAURANT_DETAILS
+    INIT_RESTAURANT_DETAILS,
+    FILL_LIST_REVIEWS
 } from '../actions/types';
 
 const INITIAL_STATE = {
+    id: '',
     name: '',
     featured_image: '',
     user_rating: {
@@ -14,13 +16,16 @@ const INITIAL_STATE = {
     cuisines: '',
     timings: '',
     currency: '',
-    average_cost_for_two: ''   
+    average_cost_for_two: '',
+    reviewList: []
 }
 
 export default (state=INITIAL_STATE, action) => {
     switch(action.type) {
         case INIT_RESTAURANT_DETAILS :
-            return action.payload
+            return { ...state, ...action.payload }
+        case FILL_LIST_REVIEWS :
+            return { ...state, reviewList: action.payload }
         default :
             return state
     }
